@@ -30,14 +30,5 @@ class Raindrop {
       }
     }
   }
-
-  void raindropObstacle(float obsx, float obsy, float obsd) {
-    fill(255);
-    ellipse(obsx, obsy, obsd, obsd);
-    if (dist(obsx, obsy, loc.x, loc.y) < 28) {
-      loc.x = random(width);
-      loc.y = random(-500);
-    }
-  }
 }
 
