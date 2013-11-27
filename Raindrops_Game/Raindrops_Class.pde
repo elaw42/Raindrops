@@ -17,7 +17,7 @@ class Raindrop {
 
   void raindropMove() {
     loc.add(vel);
-    if (loc.y>=height) {
+    if (loc.y > height+10) {
       loc.y=0;
     }
   }

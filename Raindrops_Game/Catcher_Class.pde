@@ -2,12 +2,12 @@ class Catchers {
   PVector loc;
   float d;
   color f;
-  int number;
 
   Catchers() {
     d = 50;
     f = color(random(360), 100, 100);
-    number = 0;
+    numberofcatches = 0;
+    numberofloses = 0;
   }
 
   void catchersDisplay() {
@@ -21,15 +21,22 @@ class Catchers {
 
   void catchesRain(Raindrop b) {
     if (loc.dist(b.loc) < d/2 + b.d/2) {
-      number++;
+      numberofcatches++;
       b.loc.x = random(width);
       b.loc.y = random(-500);
     }
   }
 
+  void lostRaindropCounter(Raindrop c) {
+    if (c.loc.y >= height) {
+      numberofloses++;
+      text(numberofloses, width/2, 5*height/6);
+    }
+  }
+  
   void catcherCounter() {
     fill(255);
-    text(number, width/2, height/6);
+    text(numberofcatches, width/2, height/6);
   }
 }
 

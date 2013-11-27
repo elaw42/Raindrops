@@ -1,11 +1,14 @@
 Raindrop[] rains = new Raindrop[2000];
 Catchers catchers;
+boolean gameEnder;
+int numberofcatches, numberofloses;
 
 void setup() {
   size(500, 500);
   colorMode(HSB, 360, 100, 100);
   textAlign(CENTER);
   textSize(30);
+  gameEnder = false;
   catchers = new Catchers();
   for (int i = 0; i < rains.length; i++) {
     rains[i] = new Raindrop();
@@ -13,13 +16,21 @@ void setup() {
 }
 
 void draw() {
-  background(0);
-  catchers.catchersDisplay();
-  for (int i = 0; i < rains.length; i++) {
-    rains[i].raindropShow();
-    rains[i].raindropMove();
-    catchers.catchesRain(rains[i]);
+  if (gameEnder == false) {
+    background(0);
+    catchers.catchersDisplay();
+    for (int i = 0; i < rains.length; i++) {
+      catchers.lostRaindropCounter(rains[i]);
+      rains[i].raindropShow();
+      rains[i].raindropMove();
+      catchers.catchesRain(rains[i]);
+    }
+    catchers.catcherCounter();
   }
-  catchers.catcherCounter();
+  else {
+    background(0);
+    text("U LOSER", width/2, height/3);
+    text(numberofcatches, width/2, height/2);
+  }
 }
 
