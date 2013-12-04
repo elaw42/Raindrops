@@ -33,10 +33,16 @@ class Catchers {
       text("loses " + numberofloses, width/2, 5*height/6);
     }
   }
-  
+
   void catcherCounter() {
     fill(255);
     text("catches " + numberofcatches, width/2, height/6);
+    if (numberofcatches > 500) {
+      text("very catch", 150, 250);
+      text("many raindrop", 350, 250);
+      fill(236, 98, 36);
+      text("coral blue lipstick #5", 250, 300);
+    }
   }
 }
 

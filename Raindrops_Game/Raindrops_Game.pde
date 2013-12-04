@@ -16,6 +16,9 @@ void setup() {
 }
 
 void draw() {
+  if (numberofloses >= 5000) {
+    gameEnder = true;
+  }
   if (gameEnder == false) {
     background(0);
     catchers.catchersDisplay();
@@ -29,6 +32,7 @@ void draw() {
   }
   else {
     background(0);
+    fill(random(360), 100, 100);
     text("U LOSER", width/2, height/3);
     text("score " + numberofcatches, width/2, height/2);
   }
