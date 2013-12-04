@@ -30,7 +30,7 @@ void draw() {
   else {
     background(0);
     text("U LOSER", width/2, height/3);
-    text(numberofcatches, width/2, height/2);
+    text("score " + numberofcatches, width/2, height/2);
   }
 }
 
