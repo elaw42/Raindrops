@@ -11,23 +11,16 @@ class Raindrop {
   }
 
   void raindropShow() {
+    //displays raindrop
     fill(c);
     ellipse(loc.x, loc.y, d, d);
   }
 
   void raindropMove() {
+    //makes rain fall down
     loc.add(vel);
     if (loc.y > height+10) {
       loc.y=0;
-    }
-  }
-
-  void raindropMouse() {
-    if (mousePressed) {
-      if (dist(mouseX, mouseY, loc.x, loc.y) < 50) {
-        loc.x = random(width);
-        loc.y = random(-500);
-      }
     }
   }
 }
