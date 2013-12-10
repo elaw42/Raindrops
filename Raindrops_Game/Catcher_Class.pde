@@ -34,8 +34,8 @@ class Catchers {
 
   void lostRaindropCounter(Raindrop c) {
     //counter for lost raindrops
-    text("loses " + numberofloses, width/2, 5*height/6);
-    if (c.loc.y >= height) {
+    text("losses " + numberofloses, width/2, 5*height/6);
+    if (c.loc.y > height) {
       numberofloses++;
     }
   }
