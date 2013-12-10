@@ -4,10 +4,10 @@ class Catchers {
   color f;
 
   Catchers() {
-    d = 50;
+    d = 60;
     f = color(random(360), 100, 100);
     numberofcatches = 0;
-    numberofloses = 0;
+    numberoflosses = 0;
   }
 
   void catchersDisplay() {
@@ -34,9 +34,9 @@ class Catchers {
 
   void lostRaindropCounter(Raindrop c) {
     //counter for lost raindrops
-    text("losses " + numberofloses, width/2, 5*height/6);
+    text("losses " + numberoflosses, width/2, 5*height/6);
     if (c.loc.y > height) {
-      numberofloses++;
+      numberoflosses++;
     }
   }
 
@@ -45,8 +45,17 @@ class Catchers {
     fill(255);
     text("catches " + numberofcatches, width/2, height/6);
     if (numberofcatches > 500) {
+      fill(60, 100, 100);
       text("very catch", 150, 250);
       text("many raindrop", 350, 250);
+    }
+  }
+
+  void acidCatch(Acid b) {
+    if (loc.x - b.loc.x < d/2 + b.d/2 && loc.x - b.loc.x > -d/2 - b.d/2) {
+      if (loc.y - b.loc.y < d/2 + b.d/2 && loc.y - b.loc.y > -d/2 -b.d/2) {
+        gameChanger = 2;
+      }
     }
   }
 }

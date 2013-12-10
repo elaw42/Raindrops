@@ -4,7 +4,7 @@ class Raindrop {
   int d;
 
   Raindrop() {
-    loc = new PVector(random(width), random(0,-10));
+    loc = new PVector(random(width), random(-75, -100));
     vel = new PVector(0, random(2, 5));
     c = color(random(180, 200), 100, 100);
     d = 6;
