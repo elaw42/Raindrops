@@ -1,5 +1,5 @@
 Raindrop[] rains = new Raindrop[2000];
-Acid[] ac = new Acid[5];
+Acid[] ac = new Acid[10];
 Catchers catchers;
 Timed timer, timers;
 int numberofcatches, numberoflosses, gameChanger, index, indexs;
@@ -20,7 +20,7 @@ void setup() {
   catchers = new Catchers();
   //the number of milli sec needed in timer
   timer = new Timed(2000);
-  timers = new Timed(5000);
+  timers = new Timed(2500);
   //number of raindrops on screen
   index = 100;
   indexs = 0;
@@ -39,6 +39,11 @@ void draw() {
   //this is the start screen
   if (gameChanger == 0) {
     background(0);
+    text("Catch raindrops using the mouse.", width/2, height/8);
+    text("Don't lose raindrops or catch", width/2, 2*height/8);
+    text("acid rain in hard mode.", width/2, 3*height/8);
+    text("Press p to pause the game", width/2, 4*height/8);
+    text("press any key to replay it.", width/2, 5*height/8);
     //easy mode
     fill(0, 100, 100);
     rect(width/4, 3*height/4, 200, 100, 25);
@@ -68,6 +73,7 @@ void draw() {
       }
     }
     catchers.catcherCounter();
+    //creates hard mode
     if (hard) {
       for (int i = 0; i < indexs; i++) {
         if (indexs < ac.length) {
@@ -101,17 +107,19 @@ void draw() {
   }
 
   //this shows the game over screen
-  if (numberoflosses >= 2000) {
+  if (numberoflosses >= 1000) {
     gameChanger = 2;
   }
 
   if (gameChanger == 0 || gameChanger == 2) {
     if (mousePressed) {
+      //easy game
       if (mouseX > 25 && mouseX < 225 && mouseY > 325 && mouseY < 425) {
         gameChanger = 1;
         numberoflosses = 0;
         numberofcatches = 0;
       }
+      //hard game
       if (mouseX > 225 && mouseX < 425 && mouseY > 325 && mouseY < 425) {
         gameChanger = 1;
         hard = true;
@@ -119,6 +127,15 @@ void draw() {
         numberofcatches = 0;
       }
     }
+  }
+}
+
+void keyPressed() {
+  if (key == 'p') {
+    noLoop();
+  }
+  else {
+    loop();
   }
 }
 
