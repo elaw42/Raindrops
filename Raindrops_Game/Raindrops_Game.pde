@@ -3,20 +3,25 @@ Acid[] ac = new Acid[10];
 Catchers catchers;
 Timed timer, timers;
 int numberofcatches, numberoflosses, gameChanger, index, indexs;
-boolean hard;
-PImage net;
+boolean hardmode;
+PImage net, egg;
+float scale;
 
 void setup() {
   size(500, 500);
   colorMode(HSB, 360, 100, 100);
   textAlign(CENTER);
   rectMode(CENTER);
-  textSize(30);
+  textSize(25);
+  //loads pictures
   net = loadImage("Net.png");
+  egg = loadImage("Egg.jpg");
+  //scale for pictures
+  scale = .5;
   //changes to screens from start - 0, main game - 1, end - 2
   gameChanger = 0;
   //determines if hard or easy
-  hard = false;
+  hardmode = false;
   catchers = new Catchers();
   //the number of milli sec needed in timer
   timer = new Timed(2000);
@@ -39,11 +44,7 @@ void draw() {
   //this is the start screen
   if (gameChanger == 0) {
     background(0);
-    text("Catch raindrops using the mouse.", width/2, height/8);
-    text("Don't lose raindrops or catch", width/2, 2*height/8);
-    text("acid rain in hard mode.", width/2, 3*height/8);
-    text("Press p to pause the game", width/2, 4*height/8);
-    text("press any key to replay it.", width/2, 5*height/8);
+    text("Catch raindrops by moving the mouse. \nDon't lose too many raindrops or catch \nthe acid rain in hard mode. \nPress p to pause the game and \npress any key to resume it.", width/2, height/6);
     //easy mode
     fill(0, 100, 100);
     rect(width/4, 3*height/4, 200, 100, 25);
@@ -74,7 +75,7 @@ void draw() {
     }
     catchers.catcherCounter();
     //creates hard mode
-    if (hard) {
+    if (hardmode) {
       for (int i = 0; i < indexs; i++) {
         if (indexs < ac.length) {
           ac[i].acShow();
@@ -98,12 +99,20 @@ void draw() {
     fill(random(360), 100, 100);
     text("U LOSER", width/2, height/3);
     text("score " + numberofcatches, width/2, height/2);
+    //easy mode
     fill(0, 100, 100);
-    rect(width/2, 3*height/4, 200, 100, 25);
+    rect(width/4, 3*height/4, 200, 100, 25);
     fill(90, 90, 50);
-    rect(width/2, 3*height/4, 175, 75, 50);
+    rect(width/4, 3*height/4, 175, 75, 50);
     fill(180, 100, 100);
-    text("RESTART?", width/2, 3*height/4+10);
+    text("RESTART \nEASY", width/4, 3*height/4 - 7);
+    //hard mode
+    fill(0, 100, 100);
+    rect(3*width/4, 3*height/4, 200, 100, 25);
+    fill(90, 90, 50);
+    rect(3*width/4, 3*height/4, 175, 75, 50);
+    fill(180, 100, 100);
+    text("RESTART \nHARD", 3*width/4, 3*height/4 - 7);
   }
 
   //this shows the game over screen
@@ -115,16 +124,23 @@ void draw() {
     if (mousePressed) {
       //easy game
       if (mouseX > 25 && mouseX < 225 && mouseY > 325 && mouseY < 425) {
+        //starts and resets game
         gameChanger = 1;
+        hardmode = false;
         numberoflosses = 0;
         numberofcatches = 0;
+        index = 100;
+        indexs = 0;
       }
       //hard game
       if (mouseX > 225 && mouseX < 425 && mouseY > 325 && mouseY < 425) {
+        //starts and resets game
         gameChanger = 1;
-        hard = true;
+        hardmode = true;
         numberoflosses = 0;
         numberofcatches = 0;
+        index = 100;
+        indexs = 0;
       }
     }
   }
@@ -133,6 +149,13 @@ void draw() {
 void keyPressed() {
   if (key == 'p') {
     noLoop();
+    background(0);
+    text("PAUSED", width/2, height/5);
+    text("score " + numberofcatches, width/2, height/3);
+    text("Achievment: Secret Easter Egg", width/2, height/2);
+    imageMode(CENTER);
+    image(egg, width/2, 4*height/5, egg.width*scale, egg.height*scale);
+    imageMode(CORNER);
   }
   else {
     loop();
