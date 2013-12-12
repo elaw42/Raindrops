@@ -1,5 +1,5 @@
 Raindrop[] rains = new Raindrop[2000];
-Acid[] ac = new Acid[10];
+Acid[] ac = new Acid[5];
 Catchers catchers;
 Timed timer, timers;
 int numberofcatches, numberoflosses, gameChanger, index, indexs;
@@ -46,24 +46,25 @@ void draw() {
     background(0);
     text("Catch raindrops by moving the mouse. \nDon't lose too many raindrops or catch \nthe acid rain in hard mode. \nPress p to pause the game and \npress any key to resume it.", width/2, height/6);
     //easy mode
-    fill(0, 100, 100);
+    fill(190, 100, 100);
     rect(width/4, 3*height/4, 200, 100, 25);
-    fill(90, 90, 50);
+    fill(240, 90, 50);
     rect(width/4, 3*height/4, 175, 75, 50);
-    fill(180, 100, 100);
-    text("EASY", width/4, 3*height/4+10);
+    fill(190, 100, 100);
+    text("EASY", width/4, 3*height/4 + 10);
     //hard mode
-    fill(0, 100, 100);
+    fill(190, 100, 100);
     rect(3*width/4, 3*height/4, 200, 100, 25);
-    fill(90, 90, 50);
+    fill(240, 90, 50);
     rect(3*width/4, 3*height/4, 175, 75, 50);
-    fill(180, 100, 100);
-    text("HARD", 3*width/4, 3*height/4+10);
+    fill(190, 100, 100);
+    text("HARD", 3*width/4, 3*height/4 + 10);
   }
 
   //this is the main game screen
   if (gameChanger == 1) {
     background(25);
+    fill(60, 100, 100);
     catchers.catchersDisplay();
     for (int i = 0; i < index; i++) {
       if (index < rains.length) {
@@ -100,23 +101,27 @@ void draw() {
     text("U LOSER", width/2, height/3);
     text("score " + numberofcatches, width/2, height/2);
     //easy mode
-    fill(0, 100, 100);
+    fill(190, 100, 100);
     rect(width/4, 3*height/4, 200, 100, 25);
-    fill(90, 90, 50);
+    fill(240, 90, 50);
     rect(width/4, 3*height/4, 175, 75, 50);
-    fill(180, 100, 100);
+    fill(190, 100, 100);
     text("RESTART \nEASY", width/4, 3*height/4 - 7);
     //hard mode
-    fill(0, 100, 100);
+    fill(190, 100, 100);
     rect(3*width/4, 3*height/4, 200, 100, 25);
-    fill(90, 90, 50);
+    fill(240, 90, 50);
     rect(3*width/4, 3*height/4, 175, 75, 50);
-    fill(180, 100, 100);
+    fill(190, 100, 100);
     text("RESTART \nHARD", 3*width/4, 3*height/4 - 7);
   }
 
   //this shows the game over screen
-  if (numberoflosses >= 1000) {
+  if (numberoflosses >= 1000 && hardmode == true) {
+    gameChanger = 2;
+  }
+
+  if (numberoflosses >= 500 && hardmode == false) {
     gameChanger = 2;
   }
 
