@@ -14,9 +14,11 @@ class Catchers {
     //displays the catcher and changes to a net
     //when the mouse is pressed
     loc = new PVector(mouseX, mouseY);
-    fill(f);
-    ellipse(loc.x, loc.y, d, d);
-    if (mousePressed) {
+    if (netting == false) {
+      fill(f);
+      ellipse(loc.x, loc.y, d, d);
+    } 
+    else {
       image(net, mouseX - 50, mouseY - 100, net.width*.2, net.height*.2);
     }
   }
@@ -42,7 +44,7 @@ class Catchers {
 
   void catcherCounter() {
     //counter for caught raindrops
-    fill(255);
+    fill(190, 100, 100);
     text("catches " + numberofcatches, width/2, height/6);
     if (numberofcatches > 500) {
       fill(60, 100, 100);

@@ -2,8 +2,9 @@ Raindrop[] rains = new Raindrop[2000];
 Acid[] ac = new Acid[5];
 Catchers catchers;
 Timed timer, timers;
+Star st;
 int numberofcatches, numberoflosses, gameChanger, index, indexs;
-boolean hardmode;
+boolean hardmode, netting;
 PImage net, egg, back;
 float scale;
 
@@ -30,7 +31,9 @@ void setup() {
   //number of raindrops on screen
   index = 100;
   indexs = 0;
-  //iniializes raindrops
+  //creates stars
+  st = new Star();
+  //initializes raindrops
   for (int i = 0; i < rains.length; i++) {
     rains[i] = new Raindrop();
   }
@@ -45,7 +48,7 @@ void draw() {
   //this is the start screen
   if (gameChanger == 0) {
     background(0);
-    text("Catch raindrops by moving the mouse. \nDon't lose too many raindrops or catch \nthe acid rain in hard mode. \nPress p to pause the game and \npress any key to resume it.", width/2, height/6);
+    text("Catch raindrops by moving the mouse. \nDon't lose too many raindrops or catch \nthe acid rain in hard mode. \nPress p to pause the game and \npress any key to resume it. \nPress n to toggle the look of the catcher.", width/2, height/6);
     //easy mode
     fill(190, 100, 100);
     rect(width/4, 3*height/4, 200, 100, 25);
@@ -64,7 +67,7 @@ void draw() {
 
   //this is the main game screen
   if (gameChanger == 1) {
-    background(25);
+    background(back);
     fill(60, 100, 100);
     catchers.catchersDisplay();
     for (int i = 0; i < index; i++) {
@@ -98,9 +101,6 @@ void draw() {
   //this is the loss screen
   if (gameChanger == 2) {
     background(0);
-    fill(random(360), 100, 100);
-    text("U LOSER", width/2, height/3);
-    text("score " + numberofcatches, width/2, height/2);
     //easy mode
     fill(190, 100, 100);
     rect(width/4, 3*height/4, 200, 100, 25);
@@ -115,6 +115,17 @@ void draw() {
     rect(3*width/4, 3*height/4, 175, 75, 50);
     fill(190, 100, 100);
     text("RESTART \nHARD", 3*width/4, 3*height/4 - 7);
+    if (numberofcatches <= 500) {
+      fill(random(360), 100, 100);
+      text("U LOSER", width/2, height/3);
+      text("score " + numberofcatches, width/2, height/2);
+    } 
+    else {
+      text("U WHINER", width/2, height/3);
+      text("score " + numberofcatches, width/2, height/2);
+      fill(60, 100, 100);
+      st.starShow();
+    }
   }
 
   //this shows the game over screen
@@ -153,6 +164,9 @@ void mousePressed() {
 }
 
 void keyPressed() {
+  if (key =='n') {
+    netting = !netting;
+  }
   if (key == 'p') {
     if (gameChanger == 1) {
       noLoop();
