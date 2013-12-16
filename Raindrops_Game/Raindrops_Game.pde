@@ -4,7 +4,7 @@ Catchers catchers;
 Timed timer, timers;
 int numberofcatches, numberoflosses, gameChanger, index, indexs;
 boolean hardmode;
-PImage net, egg;
+PImage net, egg, back;
 float scale;
 
 void setup() {
@@ -16,6 +16,7 @@ void setup() {
   //loads pictures
   net = loadImage("Net.png");
   egg = loadImage("Egg.jpg");
+  back = loadImage("Back.jpg");
   //scale for pictures
   scale = .5;
   //changes to screens from start - 0, main game - 1, end - 2
@@ -121,46 +122,48 @@ void draw() {
     gameChanger = 2;
   }
 
-  if (numberoflosses >= 500 && hardmode == false) {
+  if (numberoflosses >= 250 && hardmode == false) {
     gameChanger = 2;
   }
+}
 
+void mousePressed() {
   if (gameChanger == 0 || gameChanger == 2) {
-    if (mousePressed) {
-      //easy game
-      if (mouseX > 25 && mouseX < 225 && mouseY > 325 && mouseY < 425) {
-        //starts and resets game
-        gameChanger = 1;
-        hardmode = false;
-        numberoflosses = 0;
-        numberofcatches = 0;
-        index = 100;
-        indexs = 0;
-      }
-      //hard game
-      if (mouseX > 225 && mouseX < 425 && mouseY > 325 && mouseY < 425) {
-        //starts and resets game
-        gameChanger = 1;
-        hardmode = true;
-        numberoflosses = 0;
-        numberofcatches = 0;
-        index = 100;
-        indexs = 0;
-      }
+    //easy game
+    if (mouseX > 25 && mouseX < 225 && mouseY > 325 && mouseY < 425) {
+      //starts and resets game
+      gameChanger = 1;
+      hardmode = false;
+      numberoflosses = 0;
+      numberofcatches = 0;
+      index = 100;
+      indexs = 0;
+    }
+    //hard game
+    if (mouseX > 225 && mouseX < 425 && mouseY > 325 && mouseY < 425) {
+      //starts and resets game
+      gameChanger = 1;
+      hardmode = true;
+      numberoflosses = 0;
+      numberofcatches = 0;
+      index = 100;
+      indexs = 0;
     }
   }
 }
 
 void keyPressed() {
   if (key == 'p') {
-    noLoop();
-    background(0);
-    text("PAUSED", width/2, height/5);
-    text("score " + numberofcatches, width/2, height/3);
-    text("Achievment: Secret Easter Egg", width/2, height/2);
-    imageMode(CENTER);
-    image(egg, width/2, 4*height/5, egg.width*scale, egg.height*scale);
-    imageMode(CORNER);
+    if (gameChanger == 1) {
+      noLoop();
+      background(0);
+      text("PAUSED", width/2, height/5);
+      text("score " + numberofcatches, width/2, height/3);
+      text("Achievment: Secret Easter Egg", width/2, height/2);
+      imageMode(CENTER);
+      image(egg, width/2, 4*height/5, egg.width*scale, egg.height*scale);
+      imageMode(CORNER);
+    }
   }
   else {
     loop();
