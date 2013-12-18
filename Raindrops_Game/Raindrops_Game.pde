@@ -3,8 +3,8 @@ Acid[] ac = new Acid[5];
 Catchers catchers;
 Timed timer, timers;
 Star st;
-int numberofcatches, numberoflosses, gameChanger, index, indexs;
-boolean hardmode, netting;
+int numberofcatches, numberoflosses, gameChanger, index, indexacid;
+boolean hardmode, netting, backing;
 PImage net, egg, back;
 float scale;
 
@@ -24,13 +24,15 @@ void setup() {
   gameChanger = 0;
   //determines if hard or easy
   hardmode = false;
+  backing = false;
+  netting = false;
   catchers = new Catchers();
   //the number of milli sec needed in timer
   timer = new Timed(2000);
   timers = new Timed(2500);
   //number of raindrops on screen
   index = 100;
-  indexs = 0;
+  indexacid = 0;
   //creates stars
   st = new Star();
   //initializes raindrops
@@ -48,7 +50,9 @@ void draw() {
   //this is the start screen
   if (gameChanger == 0) {
     background(0);
-    text("Catch raindrops by moving the mouse. \nDon't lose too many raindrops or catch \nthe acid rain in hard mode. \nPress p to pause the game and \npress any key to resume it. \nPress n to toggle the look of the catcher.", width/2, height/6);
+    textSize(20);
+    text("Catch raindrops by moving the mouse. \nDon't lose too many raindrops or catch \nthe acid rain in hard mode. Press p to \npause the game and press any key to \nresume. Press t to change the background. \nPress n to toggle the look of the catcher.", width/2, height/6);
+    textSize(25);
     //easy mode
     fill(190, 100, 100);
     rect(width/4, 3*height/4, 200, 100, 25);
@@ -67,7 +71,12 @@ void draw() {
 
   //this is the main game screen
   if (gameChanger == 1) {
-    background(back);
+    if (backing == false) {
+      background(25);
+    } 
+    else {
+      background(back);
+    }
     fill(60, 100, 100);
     catchers.catchersDisplay();
     for (int i = 0; i < index; i++) {
@@ -81,8 +90,8 @@ void draw() {
     catchers.catcherCounter();
     //creates hard mode
     if (hardmode) {
-      for (int i = 0; i < indexs; i++) {
-        if (indexs < ac.length) {
+      for (int i = 0; i < indexacid; i++) {
+        if (indexacid < ac.length) {
           ac[i].acShow();
           ac[i].acMove();
         }
@@ -94,7 +103,7 @@ void draw() {
       index+=100;
     }
     if (timers.time()) {
-      indexs++;
+      indexacid++;
     }
   }
 
@@ -148,7 +157,7 @@ void mousePressed() {
       numberoflosses = 0;
       numberofcatches = 0;
       index = 100;
-      indexs = 0;
+      indexacid = 0;
     }
     //hard game
     if (mouseX > 225 && mouseX < 425 && mouseY > 325 && mouseY < 425) {
@@ -158,16 +167,22 @@ void mousePressed() {
       numberoflosses = 0;
       numberofcatches = 0;
       index = 100;
-      indexs = 0;
+      indexacid = 0;
     }
   }
 }
 
 void keyPressed() {
   if (key =='n') {
+    //toggles net
     netting = !netting;
   }
+  if (key == 'b') {
+    //toggles background
+    backing = !backing;
+  }
   if (key == 'p') {
+    //pauses game, only during main screen
     if (gameChanger == 1) {
       noLoop();
       background(0);

@@ -6,6 +6,7 @@ class Star {
   }
 
   void starShow() {
+    //creates a star at mouseX and mouseY
     translate(mouseX, mouseY);
     pushMatrix();
     rotate(radians(deg));

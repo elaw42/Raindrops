@@ -20,7 +20,7 @@ class Raindrop {
     //makes rain fall down
     loc.add(vel);
     if (loc.y > height + 3.5) {
-      loc.y=0;
+      loc.y=-50;
     }
   }
 }

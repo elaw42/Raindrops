@@ -36,6 +36,7 @@ class Catchers {
 
   void lostRaindropCounter(Raindrop c) {
     //counter for lost raindrops
+    fill(75, 100, 100);
     text("losses " + numberoflosses, width/2, 5*height/6);
     if (c.loc.y > height) {
       numberoflosses++;
@@ -44,7 +45,7 @@ class Catchers {
 
   void catcherCounter() {
     //counter for caught raindrops
-    fill(190, 100, 100);
+    fill(75, 100, 100);
     text("catches " + numberofcatches, width/2, height/6);
     if (numberofcatches > 500) {
       fill(60, 100, 100);
@@ -54,6 +55,7 @@ class Catchers {
   }
 
   void acidCatch(Acid b) {
+    //the game will end of the catcher touches acid
     if (loc.x - b.loc.x < d/2 + b.d/2 && loc.x - b.loc.x > -d/2 - b.d/2) {
       if (loc.y - b.loc.y < d/2 + b.d/2 && loc.y - b.loc.y > -d/2 -b.d/2) {
         gameChanger = 2;
